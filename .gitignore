@@ -1,0 +1,16 @@
+# Folders #
+.idea/*
+out/*
+classes/*
+target/*
+lib/*
+
+# Files #
+*.class
+*.iml
+*.DS_Store
+*.jar
+
+# Derby #
+derby.log
+
