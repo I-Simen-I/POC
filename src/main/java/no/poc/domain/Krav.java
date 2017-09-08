@@ -1,6 +1,6 @@
 package no.poc.domain;
 
-public class Krav {
+public class Krav extends AbstractEntity<Long> {
     private long kravId;
     private KravType kravType;
 
@@ -11,6 +11,11 @@ public class Krav {
     public Krav(long kravId, KravType kravType) {
         this.kravId = kravId;
         this.kravType = kravType;
+    }
+
+    @Override
+    public Long getId() {
+        return kravId;
     }
 
     public long getKravId() {

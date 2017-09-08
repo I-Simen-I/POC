@@ -2,7 +2,7 @@ package no.poc.domain;
 
 import java.util.List;
 
-public class Sak {
+public class Sak extends AbstractEntity<Long> {
     private long sakId;
     private Bruker bruker;
     private List<Krav> kravList;
@@ -15,6 +15,11 @@ public class Sak {
         this.sakId = sakId;
         this.bruker = bruker;
         this.kravList = kravList;
+    }
+
+    @Override
+    public Long getId() {
+        return sakId;
     }
 
     public long getSakId() {
