@@ -27,7 +27,7 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
         }
     }
 
-    protected abstract boolean initialized();
+    abstract boolean initialized();
 
     private void validateInternalVariables() {
         if (dialogTitle == null) {
@@ -35,9 +35,9 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
         }
     }
 
-    protected abstract void populateDialogInCreationMode();
+    abstract void populateDialogInCreationMode();
 
-    protected abstract void populateDialogInEditMode();
+    abstract void populateDialogInEditMode();
 
 
     public void save() {
@@ -47,13 +47,13 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
         }
     }
 
-    public abstract void saveChanges();
+    abstract void saveChanges();
 
     public void close() {
         resetDialog();
     }
 
-    public abstract void resetDialog();
+    abstract void resetDialog();
 
     public String getDialogTitle() {
         return dialogTitle;
