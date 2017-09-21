@@ -2,9 +2,9 @@ package no.poc.dialogs;
 
 public abstract class AbstractDialogBacking<T> extends AbstractBean {
     private String dialogTitle;
-    private String dialogMessageID;
     private T dialogObject;
-    private Boolean dialogInEditMode;
+    private DialogMode dialogMode;
+    private boolean validationFailed;
 
     /**
      * Populerer dialogen med et objekt. Dialogen vil starte med dialogInEditMode = true
@@ -19,32 +19,32 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
         validateInternalVariables();
 
         if (!initialized()) {
-            dialogInEditMode = false;
-            populateDialogWithDataWhenNotInitialized();
+            dialogMode = DialogMode.CREATION_MODE;
+            populateDialogInCreationMode();
         } else {
-            dialogInEditMode = true;
-            populateDialogWithDataWhenInitialized();
+            dialogMode = DialogMode.EDIT_MODE;
+            populateDialogInEditMode();
         }
     }
 
-    public abstract boolean initialized();
+    protected abstract boolean initialized();
 
     private void validateInternalVariables() {
         if (dialogTitle == null) {
             throw new UnsupportedOperationException("DialogTittel er ikke definert");
-        } else if (dialogMessageID == null) {
-            throw new UnsupportedOperationException("DialogMessageId er ikke definert");
         }
     }
 
-    abstract void populateDialogWithDataWhenNotInitialized();
+    protected abstract void populateDialogInCreationMode();
 
-    abstract void populateDialogWithDataWhenInitialized();
+    protected abstract void populateDialogInEditMode();
 
 
     public void save() {
         saveChanges();
-        resetDialog();
+        if (!validationFailed) {
+            resetDialog();
+        }
     }
 
     public abstract void saveChanges();
@@ -63,7 +63,24 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
         this.dialogTitle = dialogTitle;
     }
 
-    public Boolean getDialogInEditMode() {
-        return dialogInEditMode;
+    public boolean isDialogInEditMode() {
+        return dialogMode.name().equals(DialogMode.EDIT_MODE.name());
+    }
+
+    public boolean isDialogInCreationMode() {
+        return dialogMode.name().equals(DialogMode.CREATION_MODE.name());
+    }
+
+    protected void validationFailed() {
+        validationFailed = true;
+    }
+
+    protected void validationPassed() {
+        validationFailed = false;
+    }
+
+    private enum DialogMode {
+        CREATION_MODE,
+        EDIT_MODE
     }
 }
