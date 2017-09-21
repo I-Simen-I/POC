@@ -7,7 +7,7 @@ public abstract class AbstractDialogBacking<T> extends AbstractBean {
     private boolean validationFailed;
 
     /**
-     * Populerer dialogen med et objekt. Dialogen vil starte med dialogInEditMode = true
+     * Populerer dialogen med et objekt. Dialogen vil starte med isDialogInEditMode() = true
      *
      * @param dialogObject objektet som skal brukes i dialogen
      */
