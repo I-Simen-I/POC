@@ -1,5 +1,6 @@
 package no.poc.domain.builder;
 
+
 import no.poc.domain.Bruker;
 
 public class BrukerBuilder {
