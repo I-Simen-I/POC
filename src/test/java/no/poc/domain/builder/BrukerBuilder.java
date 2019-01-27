@@ -4,9 +4,10 @@ package no.poc.domain.builder;
 import no.poc.domain.Bruker;
 
 public class BrukerBuilder {
-    private long brukerId;
+    private Long id;
     private String fornavn;
     private String etternavn;
+    private String organisasjonsnavn;
 
     private BrukerBuilder() {
     }
@@ -15,29 +16,43 @@ public class BrukerBuilder {
         return new BrukerBuilder();
     }
 
-    public BrukerBuilder withBrukerId(long brukerId) {
-        this.brukerId = brukerId;
+    public BrukerBuilder withId(long brukerId) {
+        this.id = brukerId;
         return this;
     }
 
     public BrukerBuilder withFornavn(String fornavn) {
         this.fornavn = fornavn;
+        this.organisasjonsnavn = null;
         return this;
     }
 
     public BrukerBuilder withEtternavn(String etternavn) {
         this.etternavn = etternavn;
+        this.organisasjonsnavn = null;
+        return this;
+    }
+
+    public BrukerBuilder withOrganisasjonsnavn(String organisasjonsnavn) {
+        this.organisasjonsnavn = organisasjonsnavn;
+        this.fornavn = null;
+        this.etternavn = null;
         return this;
     }
 
     public BrukerBuilder ofTypeAndebyBruker() {
-        withBrukerId(1L);
+        withId(1L);
         withFornavn("Donald");
         withEtternavn("Duck");
         return this;
     }
 
     public Bruker build() {
-        return new Bruker(brukerId, fornavn, etternavn);
+        return new Bruker(
+                id != null ? id : 1L,
+                fornavn,
+                etternavn,
+                organisasjonsnavn
+        );
     }
 }
